@@ -3053,6 +3053,9 @@ const ClaraAssistantInput: React.FC<ClaraInputProps> = ({
     const processedAttachments = await claraAttachmentService.processFileAttachments(attachments);
     
     // Show extraction confirmation if any files were processed
+    // 🔕 NOTIFICATIONS DÉSACTIVÉES TEMPORAIREMENT (06/05/2026)
+    // Pour réactiver, voir: Doc ClaraAttachmentService traitement/GUIDE_REACTIVATION_NOTIFICATIONS.md
+    /*
     const hasDocuments = processedAttachments.some(att => 
       (att.type === 'excel' || att.type === 'word' || att.type === 'document') 
       && att.processed && att.processingResult?.success
@@ -3061,6 +3064,7 @@ const ClaraAssistantInput: React.FC<ClaraInputProps> = ({
     if (hasDocuments) {
       claraAttachmentService.showExtractionAlert(processedAttachments);
     }
+    */
     
     return processedAttachments;
   }, []);

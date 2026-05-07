@@ -1,3 +1,9 @@
+/* DÉSACTIVATION TEMPORAIRE - 06 MAI 2026 */
+/* Pour réactiver: supprimer les 4 lignes ci-dessous */
+.notification-container {
+  display: none !important;
+}
+
 /* Notification Container Styles */
 
 .notification-container {
