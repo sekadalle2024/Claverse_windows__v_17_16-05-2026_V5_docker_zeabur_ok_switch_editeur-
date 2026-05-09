@@ -1728,7 +1728,7 @@ Contenu de [Contexte de base]
 [Variable 2] = Contenu de [Variable 2]
 [Guide des commandes] : Activate`
               }
-            ]]
+            ]
           },
           {
             id: 'analyse-variations',
