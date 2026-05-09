@@ -153,6 +153,18 @@ export class ClaraApiService {
       caseName = "Case 44";
     }
     
+    // Case 45: Leadsheet
+    else if (msg.includes("Leadsheet")) {
+      routeKey = "leadsheet";
+      caseName = "Case 45";
+    }
+    
+    // Case 46: Revue analytique
+    else if (msg.includes("Revue analytique")) {
+      routeKey = "revue_analytique";
+      caseName = "Case 46";
+    }
+    
     // Cases 35-43: Templates de tables (génération locale)
     else if (msg.includes("Template_table_unicolonne")) {
       routeKey = "template_table_unicolonne";
@@ -286,6 +298,10 @@ export class ClaraApiService {
         return this.SENTINEL_ETAT_FIN;
       case "editeur":
         return this.SENTINEL_EDITEUR;
+      case "leadsheet":
+        return "https://n8nsqlite.zeabur.app/webhook/leadsheet";
+      case "revue_analytique":
+        return "https://n8nsqlite.zeabur.app/webhook/revue_analytique";
       case "recos_controle_interne":
         return "https://n8nsqlite.zeabur.app/webhook/recos_contrôle_interne_comptable";
       case "recos_revision_comptes":

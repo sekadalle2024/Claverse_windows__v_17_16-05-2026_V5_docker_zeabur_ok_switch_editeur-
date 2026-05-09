@@ -725,7 +725,6 @@ const MENU_DATA: LogicielItem[] = [
                 command: `[Command] = Couverture
 [Processus] = Sécurité trésorerie
 [Contrôle] = Verifier l exhaustivite des inventaires de caisse
-[Instruction] = Template
 [Modele de test] = no, compte, site, libelle, solde BG, Solde Pv inventaire
 [Nb de lignes] = 15`
               },
@@ -735,7 +734,6 @@ const MENU_DATA: LogicielItem[] = [
                 command: `[Command] = Couverture
 [Processus] = Sécurité trésorerie
 [Contrôle] = Verifier l exhaustivite des inventaires de caisse
-[Instruction] = Template
 [Modele de test] = no, compte, site, libelle, solde BG, Solde Pv inventaire
 [Nb de lignes] = 15
 [Demo] = Activate`
@@ -1632,6 +1630,28 @@ Contenu de [Contexte de base]
         id: 'revue-analytique',
         label: 'Revue analytique',
         etapes: [
+          {
+            id: 'regles-methodes-comptables',
+            label: 'Règles et méthodes comptables',
+            icon: <FileText className="w-4 h-4" />,
+            modes: [
+              {
+                id: 'normal',
+                label: 'Normal',
+                command: `[Command] : Règles et méthodes comptables
+[Processus] : Trésorerie
+[Données de base] = pièce jointe`
+              },
+              {
+                id: 'demo',
+                label: 'Demo',
+                command: `[Command] : Règles et méthodes comptables
+[Processus] : Trésorerie
+[Données de base] = pièce jointe
+[Demo] = Activate`
+              }
+            ]
+          },
                     {
             id: 'lead-balance',
             label: 'Lead balance',
@@ -1644,6 +1664,28 @@ Contenu de [Contexte de base]
               }
             ]
           },
+          {
+            id: 'leadsheet',
+            label: 'Leadsheet',
+            icon: <Calculator className="w-4 h-4" />,
+            modes: [
+              {
+                id: 'normal',
+                label: 'Normal',
+                command: `[Command] = Leadsheet
+[Processus] = Trésorerie
+[Données de base] = pièce jointe`
+              },
+              {
+                id: 'demo',
+                label: 'Demo',
+                command: `[Command] = Leadsheet
+[Processus] = Trésorerie
+[Données de base] = pièce jointe
+[Demo] = Activate`
+              }
+            ]
+          },
 {
             id: 'revue-analytique-generale',
             label: 'Revue analytique générale',
@@ -1652,20 +1694,17 @@ Contenu de [Contexte de base]
               {
                 id: 'normal',
                 label: 'Normal',
-                command: `[Command] = Revue analytique
-[Processus] = 
-[Période] = 
-[Objectif] = `
+                command: `[Command] : Revue analytique
+[Processus] : Trésorerie
+[Données de base] = pièce jointe`
               },
               {
-                id: 'avance',
-                label: 'Avancé',
-                command: `[Command] = Revue analytique
-[Processus] = 
-[Période] = 
-[Objectif] = 
-[Variable 1] = Contenu de [Variable 1]
-[Variable 2] = Contenu de [Variable 2]`
+                id: 'demo',
+                label: 'Demo',
+                command: `[Command] : Revue analytique
+[Processus] : Trésorerie
+[Données de base] = pièce jointe
+[Demo] = Activate`
               },
               {
                 id: 'methodo',
@@ -1689,7 +1728,7 @@ Contenu de [Contexte de base]
 [Variable 2] = Contenu de [Variable 2]
 [Guide des commandes] : Activate`
               }
-            ]
+            ]]
           },
           {
             id: 'analyse-variations',
@@ -11721,7 +11760,6 @@ Contenu de [Contexte de base]
                 command: `[Command] = Couverture
 [Processus] = Sécurité trésorerie
 [Contrôle] = Verifier l exhaustivite des inventaires de caisse
-[Instruction] = Template
 [Modele de test] = no, compte, site, libelle, solde BG, Solde Pv inventaire
 [Nb de lignes] = 15`
               },
