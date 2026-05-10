@@ -4154,8 +4154,24 @@
 
         XLSX.utils.book_append_sheet(wb, ws, "Template Export");
 
+        // 🎯 NOUVEAU: Extraire le nom de l'étape de mission pour le nom du fichier
+        const etapeMission = this.extractEtapeMission(tables);
         const timestamp = new Date().toISOString().slice(0, 19).replace(/[:]/g, "-");
-        XLSX.writeFile(wb, `claraverse_template_${timestamp}.xlsx`);
+        
+        // Construire le nom du fichier selon la nomenclature E-audit
+        let filename;
+        if (etapeMission) {
+          // Format: E-audit_Etape-mission-{NomEtape}_{timestamp}
+          const etapeSanitized = etapeMission.replace(/[^a-zA-Z0-9\s-]/g, '').replace(/\s+/g, '-');
+          filename = `E-audit_Etape-mission-${etapeSanitized}_${timestamp}.xlsx`;
+          console.log(`✅ [Export Template] Nom fichier avec étape: ${filename}`);
+        } else {
+          // Format fallback: E-audit_Etape-mission-X_{timestamp}
+          filename = `E-audit_Etape-mission-X_${timestamp}.xlsx`;
+          console.log(`⚠️ [Export Template] Étape de mission non trouvée, nom fichier fallback: ${filename}`);
+        }
+        
+        XLSX.writeFile(wb, filename);
         this.showQuickNotification(`✅ Export template terminé! (${tables.length} tables)`);
       } catch (error) {
         console.error("Erreur export template:", error);
@@ -5787,6 +5803,56 @@
 
       return tableData;
     }
+
+    /**
+     * Extraire le nom de l'étape de mission depuis les tables
+     * Cherche une table avec les colonnes "Rubrique" et "Description"
+     * et la ligne "Etape de mission" pour extraire sa valeur
+     * 
+     * @param {Array} tables - Liste des tables à analyser
+     * @returns {string|null} - Nom de l'étape de mission ou null si non trouvé
+     */
+    extractEtapeMission(tables) {
+      console.log("🔍 [Extract Etape Mission] Recherche de l'étape de mission dans", tables.length, "table(s)");
+      
+      for (let tableIndex = 0; tableIndex < tables.length; tableIndex++) {
+        const table = tables[tableIndex];
+        const tableData = this.extractTableDataOptimized(table);
+        
+        if (tableData.length < 2) continue; // Besoin d'au moins en-tête + 1 ligne
+        
+        // Vérifier si la table a les colonnes "Rubrique" et "Description"
+        const headers = tableData[0].map(h => h.toLowerCase().trim());
+        const rubriqueIndex = headers.findIndex(h => h.includes('rubrique'));
+        const descriptionIndex = headers.findIndex(h => h.includes('description'));
+        
+        if (rubriqueIndex === -1 || descriptionIndex === -1) {
+          console.log(`  ⏭️ Table ${tableIndex + 1}: Pas de colonnes Rubrique/Description`);
+          continue;
+        }
+        
+        console.log(`  ✅ Table ${tableIndex + 1}: Colonnes trouvées - Rubrique: col ${rubriqueIndex}, Description: col ${descriptionIndex}`);
+        
+        // Chercher la ligne "Etape de mission"
+        for (let rowIndex = 1; rowIndex < tableData.length; rowIndex++) {
+          const row = tableData[rowIndex];
+          const rubriqueValue = (row[rubriqueIndex] || '').toLowerCase().trim();
+          
+          if (rubriqueValue.includes('etape') && rubriqueValue.includes('mission')) {
+            const etapeMission = (row[descriptionIndex] || '').trim();
+            
+            if (etapeMission) {
+              console.log(`  🎯 [Extract Etape Mission] Trouvé: "${etapeMission}" (Table ${tableIndex + 1}, Ligne ${rowIndex + 1})`);
+              return etapeMission;
+            }
+          }
+        }
+      }
+      
+      console.log("  ⚠️ [Extract Etape Mission] Étape de mission non trouvée dans aucune table");
+      return null;
+    }
+
     /**
      * Extraire le contenu complet d'une cellule de table
      * Gère les tables avec 1 ou 2 colonnes (label + contenu)
