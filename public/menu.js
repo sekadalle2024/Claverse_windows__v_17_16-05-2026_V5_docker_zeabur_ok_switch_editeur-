@@ -4031,15 +4031,84 @@
         this.showQuickNotification("📊 Export template en cours...");
         await this.ensureSheetJSStyleLoaded();
 
-        // Chercher les tables dans le contexte de la table active
-        let tables = this.findRelatedTables();
+        // CORRECTION: Exporter TOUTES les tables du message
+        // wrap-tables-auto.js enveloppe chaque table individuellement dans un div[data-container-id]
+        // Il faut donc trouver le conteneur parent qui contient tous ces wrappers
+        let tables = [];
+        
+        if (this.targetTable) {
+          // 1. Trouver le wrapper individuel de la table cliquée
+          const tableWrapper = this.targetTable.closest('[data-container-id]');
+          
+          if (tableWrapper) {
+            console.log("🔍 [Export Template] Wrapper individuel trouvé:", tableWrapper.getAttribute('data-container-id'));
+            
+            // 2. Remonter au conteneur parent qui contient tous les wrappers de tables du message
+            // Chercher un parent qui contient plusieurs div[data-container-id]
+            let messageContainer = tableWrapper.parentElement;
+            
+            while (messageContainer && messageContainer !== document.body) {
+              // Compter les wrappers de tables dans ce conteneur
+              const wrappersCount = messageContainer.querySelectorAll('[data-container-id]').length;
+              
+              console.log(`🔍 [Export Template] Conteneur testé: ${messageContainer.className}, wrappers: ${wrappersCount}`);
+              
+              // Si ce conteneur a plusieurs wrappers, c'est le conteneur du message
+              if (wrappersCount > 1) {
+                console.log(`✅ [Export Template] Conteneur du message trouvé avec ${wrappersCount} wrappers`);
+                break;
+              }
+              
+              messageContainer = messageContainer.parentElement;
+            }
+            
+            // 3. Extraire toutes les tables de ce conteneur
+            if (messageContainer && messageContainer !== document.body) {
+              tables = Array.from(messageContainer.querySelectorAll('table'));
+              console.log(`✅ [Export Template] ${tables.length} table(s) trouvée(s) dans le message`);
+            } else {
+              // Fallback: si pas de conteneur parent trouvé, prendre juste la table active
+              console.warn("⚠️ [Export Template] Conteneur parent non trouvé, export de la table active uniquement");
+              tables = [this.targetTable];
+            }
+          } else {
+            // Pas de wrapper data-container-id, chercher le conteneur prose classique
+            console.log("🔍 [Export Template] Pas de wrapper data-container-id, recherche conteneur prose");
+            const proseContainer = this.targetTable.closest('div.prose.prose-base.dark\\:prose-invert.max-w-none')
+              || this.targetTable.closest('div.prose');
+            
+            if (proseContainer) {
+              tables = Array.from(proseContainer.querySelectorAll('table'));
+              console.log(`✅ [Export Template] ${tables.length} table(s) trouvée(s) dans conteneur prose`);
+            } else {
+              tables = [this.targetTable];
+            }
+          }
+          
+          // DIAGNOSTIC: Afficher les tables trouvées
+          if (tables.length > 0) {
+            console.log("🔍 [Export Template] Tables détectées:");
+            tables.forEach((table, i) => {
+              console.log(`  Table ${i + 1}:`, {
+                rows: table.querySelectorAll('tr').length,
+                cols: table.querySelectorAll('tr')[0]?.querySelectorAll('td, th').length || 0
+              });
+            });
+          }
+        }
+        
+        // Fallback: si aucune table trouvée, utiliser toutes les tables visibles
+        if (tables.length === 0) {
+          tables = Array.from(document.querySelectorAll('div.prose table'));
+          console.log(`📊 Export template (fallback global): ${tables.length} tables trouvées`);
+        }
 
         if (tables.length === 0) {
           this.showAlert("⚠️ Aucune table trouvée dans le contexte actuel.");
           return;
         }
 
-        console.log(`📊 Export template: ${tables.length} tables trouvées dans le contexte`);
+        console.log(`📊 Export template: ${tables.length} tables seront exportées`);
 
         // Construire les données combinées avec lignes vides entre tables
         const allData = [];
@@ -4103,15 +4172,82 @@
       try {
         this.showQuickNotification("📄 Export Word en cours...");
 
-        // Chercher les tables dans le contexte de la table active
-        let tables = this.findRelatedTables();
+        // ✅ CORRECTION: Même logique que exportTemplate() - Compter les wrappers data-container-id
+        let tables = [];
+        
+        if (this.targetTable) {
+          // 1. Trouver le wrapper individuel de la table cliquée
+          const tableWrapper = this.targetTable.closest('[data-container-id]');
+          
+          if (tableWrapper) {
+            console.log("🔍 [Export Word] Wrapper individuel trouvé:", 
+                        tableWrapper.getAttribute('data-container-id'));
+            
+            // 2. Remonter au conteneur parent qui contient tous les wrappers
+            let messageContainer = tableWrapper.parentElement;
+            
+            while (messageContainer && messageContainer !== document.body) {
+              // ✅ CLEF: Compter les WRAPPERS, pas les tables
+              const wrappersCount = messageContainer.querySelectorAll('[data-container-id]').length;
+              
+              console.log(`🔍 [Export Word] Conteneur testé: ${messageContainer.className}, wrappers: ${wrappersCount}`);
+              
+              // Si ce conteneur a plusieurs wrappers, c'est le conteneur du message
+              if (wrappersCount > 1) {
+                console.log(`✅ [Export Word] Conteneur du message trouvé avec ${wrappersCount} wrappers`);
+                break;
+              }
+              
+              messageContainer = messageContainer.parentElement;
+            }
+            
+            // 3. Extraire toutes les tables de ce conteneur
+            if (messageContainer && messageContainer !== document.body) {
+              tables = Array.from(messageContainer.querySelectorAll('table'));
+              console.log(`✅ [Export Word] ${tables.length} table(s) trouvée(s) dans le message`);
+            } else {
+              // Fallback: si pas de conteneur parent trouvé, prendre juste la table active
+              console.warn("⚠️ [Export Word] Conteneur parent non trouvé, export de la table active uniquement");
+              tables = [this.targetTable];
+            }
+          } else {
+            // Pas de wrapper data-container-id, chercher le conteneur prose classique
+            console.log("🔍 [Export Word] Pas de wrapper data-container-id, recherche conteneur prose");
+            const proseContainer = this.targetTable.closest('div.prose.prose-base.dark\\:prose-invert.max-w-none')
+              || this.targetTable.closest('div.prose');
+            
+            if (proseContainer) {
+              tables = Array.from(proseContainer.querySelectorAll('table'));
+              console.log(`✅ [Export Word] ${tables.length} table(s) trouvée(s) dans conteneur prose`);
+            } else {
+              tables = [this.targetTable];
+            }
+          }
+          
+          // DIAGNOSTIC: Afficher les tables trouvées
+          if (tables.length > 0) {
+            console.log("🔍 [Export Word] Tables détectées:");
+            tables.forEach((table, i) => {
+              console.log(`  Table ${i + 1}:`, {
+                rows: table.querySelectorAll('tr').length,
+                cols: table.querySelectorAll('tr')[0]?.querySelectorAll('td, th').length || 0
+              });
+            });
+          }
+        }
+        
+        // Fallback: si aucune table trouvée ou pas de table active, utiliser toutes les tables
+        if (tables.length === 0) {
+          tables = Array.from(document.querySelectorAll('div.prose table'));
+          console.log(`📄 Export Word (fallback global): ${tables.length} tables trouvées`);
+        }
 
         if (tables.length === 0) {
           this.showAlert("⚠️ Aucune table trouvée dans le contexte actuel.");
           return;
         }
 
-        console.log(`📄 Export Word: ${tables.length} tables trouvées dans le contexte`);
+        console.log(`📄 Export Word: ${tables.length} tables seront exportées`);
 
         // Préparer les données des tables pour le backend
         const tablesData = [];
@@ -4906,7 +5042,7 @@
         // Vérifier si le script est déjà chargé
         const existingScript = document.querySelector('script[src*="docx"]');
         if (existingScript) {
-          // Attendre que la lib soit disponible
+          // Attendre que la lib soit disponible (timeout augmenté à 3 minutes)
           let attempts = 0;
           const checkLib = setInterval(() => {
             attempts++;
@@ -4915,9 +5051,9 @@
               this._docxLib = window.docx;
               console.log("✅ docx trouvé après attente");
               resolve();
-            } else if (attempts > 50) {
+            } else if (attempts > 1800) { // 1800 × 100ms = 3 minutes
               clearInterval(checkLib);
-              reject(new Error("Timeout: docx non accessible"));
+              reject(new Error("Timeout: docx non accessible après 3 minutes"));
             }
           }, 100);
           return;
@@ -4926,7 +5062,7 @@
         const script = document.createElement("script");
         script.src = "https://unpkg.com/docx@8.5.0/build/index.umd.js";
         script.onload = () => {
-          // Attendre que la bibliothèque s'initialise
+          // Attendre que la bibliothèque s'initialise (timeout augmenté à 3 minutes)
           let attempts = 0;
           const checkLib = setInterval(() => {
             attempts++;
@@ -4935,9 +5071,9 @@
               this._docxLib = window.docx;
               console.log("✅ Bibliothèque docx chargée avec succès");
               resolve();
-            } else if (attempts > 50) {
+            } else if (attempts > 1800) { // 1800 × 100ms = 3 minutes
               clearInterval(checkLib);
-              reject(new Error("docx chargé mais Document non accessible"));
+              reject(new Error("docx chargé mais Document non accessible après 3 minutes"));
             }
           }, 100);
         };
