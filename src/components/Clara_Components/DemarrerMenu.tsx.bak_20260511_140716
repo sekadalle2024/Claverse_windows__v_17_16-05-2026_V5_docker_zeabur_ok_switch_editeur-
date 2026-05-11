@@ -1318,7 +1318,9 @@ Contenu de [Contexte de base]
                 label: 'Normal',
                 command: `[Command] = Couverture
 [Processus] = Controle des rapprochements bancaires
-[Contrôle] = vérifier que les rapprochements bancaires ont été étables et approuvés sur la periode
+[Contrôle] = voir table 2
+[Contexte de base]
+[Modelisation] : les informations des rapprochements bancaires
 [Integration] = Implementation_programme_controle
 [Nb de lignes] = 25`
               },
@@ -1327,12 +1329,37 @@ Contenu de [Contexte de base]
                 label: 'Demo',
                 command: `[Command] = Couverture
 [Processus] = Controle des rapprochements bancaires
-[Contrôle] = vérifier que les rapprochements bancaires ont été étables et approuvés sur la periode
+[Contrôle] = voir table 2
+[Contexte de base]
+[Modelisation] : les informations des rapprochements bancaires
 [Integration] = Implementation_programme_controle
-[Nb de lignes] = 25
-[Demo] = Activate`
+[Demo] = Activate
+[Nb de lignes] = 25`
+              },
+              {
+                id: 'methodo',
+                label: 'Methodo revision',
+                command: `[Command] = Couverture
+[Processus] = Controle des rapprochements bancaires
+[Contrôle] = voir table 2
+[Contexte de base]
+[Modelisation] : les informations des rapprochements bancaires
+[Integration] = Implementation_programme_controle
+[Methodo revision] : Activate
+[Nb de lignes] = 25`
+              },
+              {
+                id: 'guide-commandes',
+                label: 'Guide des commandes',
+                command: `[Command] = Couverture
+[Processus] = Controle des rapprochements bancaires
+[Contrôle] = voir table 2
+[Contexte de base]
+[Modelisation] : les informations des rapprochements bancaires
+[Integration] = Implementation_programme_controle
+[Guide des commandes] : Activate
+[Nb de lignes] = 25`
               }
-            
             ]
           },          {
             id: 'matrice-controle-comptes',
