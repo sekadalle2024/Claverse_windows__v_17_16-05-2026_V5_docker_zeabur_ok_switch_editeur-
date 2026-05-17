@@ -4413,6 +4413,15 @@ Contenu de [Contexte de base]
 [Nb de lignes] = 10`,
                 modes: [
                   {
+                    id: 'normal',
+                    label: 'Normal',
+                    command: `[Command] = /feuille couverture
+[Processus] = IMMOBILISATIONS
+[test] = DD02
+[reference] = Feuilles maîtresses-IMMOBILISATIONS
+[Nb de lignes] = 10`
+                  },
+                  {
                     id: 'papier-travail',
                     label: 'Papier de travail',
                     command: `[Command] = /feuille couverture
@@ -4478,7 +4487,7 @@ Contenu de [Contexte de base]
                 ]
               },
               {
-                id: 'immobilisations-dd02-travaux-analytiques',
+                id: 'immobilisations-dd02-travaux',
                 reference: 'DD02',
                 label: 'Travaux analytiques -Immo',
                 processus: 'IMMOBILISATIONS',
@@ -4488,6 +4497,15 @@ Contenu de [Contexte de base]
 [reference] = Travaux analytiques -Immo
 [Nb de lignes] = 10`,
                 modes: [
+                  {
+                    id: 'normal',
+                    label: 'Normal',
+                    command: `[Command] = /feuille couverture
+[Processus] = IMMOBILISATIONS
+[test] = DD02
+[reference] = Travaux analytiques -Immo
+[Nb de lignes] = 10`
+                  },
                   {
                     id: 'papier-travail',
                     label: 'Papier de travail',
@@ -4565,6 +4583,15 @@ Contenu de [Contexte de base]
 [Nb de lignes] = 10`,
                 modes: [
                   {
+                    id: 'normal',
+                    label: 'Normal',
+                    command: `[Command] = /feuille couverture
+[Processus] = IMMOBILISATIONS
+[test] = DD03
+[reference] = Revue du Contrôle interne
+[Nb de lignes] = 10`
+                  },
+                  {
                     id: 'papier-travail',
                     label: 'Papier de travail',
                     command: `[Command] = /feuille couverture
@@ -4640,6 +4667,15 @@ Contenu de [Contexte de base]
 [reference] = Revue des techniques comptables
 [Nb de lignes] = 10`,
                 modes: [
+                  {
+                    id: 'normal',
+                    label: 'Normal',
+                    command: `[Command] = /feuille couverture
+[Processus] = IMMOBILISATIONS
+[test] = DD04
+[reference] = Revue des techniques comptables
+[Nb de lignes] = 10`
+                  },
                   {
                     id: 'papier-travail',
                     label: 'Papier de travail',
@@ -7109,6 +7145,346 @@ Contenu de [Contexte de base]
 [Processus] = capitaux propres
 [test] = FQ400
 [reference] = Subventions
+[Nb de lignes] = 10`
+                  }
+                ]
+              },
+              {
+                id: 'capitaux-fq02',
+                reference: 'FQ02',
+                label: 'Feuilles maîtresses-CAPITAUX PROPRES',
+                processus: 'capitaux propres',
+                command: `[Command] = /feuille couverture
+[Processus] = capitaux propres
+[test] = FQ02
+[reference] = Feuilles maîtresses-CAPITAUX PROPRES
+[Nb de lignes] = 10`,
+                modes: [
+                  {
+                    id: 'normal',
+                    label: 'Normal',
+                    command: `[Command] = /feuille couverture
+[Processus] = capitaux propres
+[test] = FQ02
+[reference] = Feuilles maîtresses-CAPITAUX PROPRES
+[Nb de lignes] = 10`
+                  },
+                  {
+                    id: 'papier-travail',
+                    label: 'Papier de travail',
+                    command: `[Command] = /feuille couverture
+[Processus] = capitaux propres
+[test] = FQ02
+[reference] = Feuilles maîtresses-CAPITAUX PROPRES
+[Papier de travail] = Activate
+[Schéma de calcul] = Activate
+[Cross references- documentaire] = Activate
+[Signature worksheet] = Activate
+[Totalisation] = Activate
+[Revue manger] = Activate
+[Legendes] = Activate
+[Cross references verticale] = Activate
+[Cross references horizontale] = Activate
+[Cross references libre] = Activate
+[Variable 1] = Contenu de [Variable 1]
+[Variable 2] = Contenu de [Variable 2]
+[Nb de lignes] = 10`
+                  },
+                  {
+                    id: 'demo',
+                    label: 'Demo',
+                    command: `[Command] = /feuille couverture
+[Processus] = capitaux propres
+[test] = FQ02
+[reference] = Feuilles maîtresses-CAPITAUX PROPRES
+[Nb de lignes] = 10
+[Demo] = Activate`
+                  },
+                  {
+                    id: 'avance',
+                    label: 'Avancé',
+                    command: `[Mode] = Avancé
+[Command] = /feuille couverture
+[Processus] = capitaux propres
+[test] = FQ02
+[reference] = Feuilles maîtresses-CAPITAUX PROPRES
+[Nb de lignes] = 10`
+                  },
+                  {
+                    id: 'methodo',
+                    label: 'Methodo revision',
+                    command: `[Mode] = Avancé
+[Methodo revision] : Activate
+[Command] = /feuille couverture
+[Processus] = capitaux propres
+[test] = FQ02
+[reference] = Feuilles maîtresses-CAPITAUX PROPRES
+[Nb de lignes] = 10`
+                  },
+                  {
+                    id: 'guide-commandes',
+                    label: 'Guide des commandes',
+                    command: `[Mode] = Avancé
+[Guide des commandes] : Activate
+[Command] = /feuille couverture
+[Processus] = capitaux propres
+[test] = FQ02
+[reference] = Feuilles maîtresses-CAPITAUX PROPRES
+[Nb de lignes] = 10`
+                  }
+                ]
+              },
+              {
+                id: 'capitaux-fq02-travaux',
+                reference: 'FQ02',
+                label: 'Travaux analytiques capitaux',
+                processus: 'capitaux propres',
+                command: `[Command] = /feuille couverture
+[Processus] = capitaux propres
+[test] = FQ02
+[reference] = Travaux analytiques capitaux
+[Nb de lignes] = 10`,
+                modes: [
+                  {
+                    id: 'normal',
+                    label: 'Normal',
+                    command: `[Command] = /feuille couverture
+[Processus] = capitaux propres
+[test] = FQ02
+[reference] = Travaux analytiques capitaux
+[Nb de lignes] = 10`
+                  },
+                  {
+                    id: 'papier-travail',
+                    label: 'Papier de travail',
+                    command: `[Command] = /feuille couverture
+[Processus] = capitaux propres
+[test] = FQ02
+[reference] = Travaux analytiques capitaux
+[Papier de travail] = Activate
+[Schéma de calcul] = Activate
+[Cross references- documentaire] = Activate
+[Signature worksheet] = Activate
+[Totalisation] = Activate
+[Revue manger] = Activate
+[Legendes] = Activate
+[Cross references verticale] = Activate
+[Cross references horizontale] = Activate
+[Cross references libre] = Activate
+[Variable 1] = Contenu de [Variable 1]
+[Variable 2] = Contenu de [Variable 2]
+[Nb de lignes] = 10`
+                  },
+                  {
+                    id: 'demo',
+                    label: 'Demo',
+                    command: `[Command] = /feuille couverture
+[Processus] = capitaux propres
+[test] = FQ02
+[reference] = Travaux analytiques capitaux
+[Nb de lignes] = 10
+[Demo] = Activate`
+                  },
+                  {
+                    id: 'avance',
+                    label: 'Avancé',
+                    command: `[Mode] = Avancé
+[Command] = /feuille couverture
+[Processus] = capitaux propres
+[test] = FQ02
+[reference] = Travaux analytiques capitaux
+[Nb de lignes] = 10`
+                  },
+                  {
+                    id: 'methodo',
+                    label: 'Methodo revision',
+                    command: `[Mode] = Avancé
+[Methodo revision] : Activate
+[Command] = /feuille couverture
+[Processus] = capitaux propres
+[test] = FQ02
+[reference] = Travaux analytiques capitaux
+[Nb de lignes] = 10`
+                  },
+                  {
+                    id: 'guide-commandes',
+                    label: 'Guide des commandes',
+                    command: `[Mode] = Avancé
+[Guide des commandes] : Activate
+[Command] = /feuille couverture
+[Processus] = capitaux propres
+[test] = FQ02
+[reference] = Travaux analytiques capitaux
+[Nb de lignes] = 10`
+                  }
+                ]
+              },
+              {
+                id: 'capitaux-fq03',
+                reference: 'FQ03',
+                label: 'Revue du Contrôle interne',
+                processus: 'capitaux propres',
+                command: `[Command] = /feuille couverture
+[Processus] = capitaux propres
+[test] = FQ03
+[reference] = Revue du Contrôle interne
+[Nb de lignes] = 10`,
+                modes: [
+                  {
+                    id: 'normal',
+                    label: 'Normal',
+                    command: `[Command] = /feuille couverture
+[Processus] = capitaux propres
+[test] = FQ03
+[reference] = Revue du Contrôle interne
+[Nb de lignes] = 10`
+                  },
+                  {
+                    id: 'papier-travail',
+                    label: 'Papier de travail',
+                    command: `[Command] = /feuille couverture
+[Processus] = capitaux propres
+[test] = FQ03
+[reference] = Revue du Contrôle interne
+[Papier de travail] = Activate
+[Schéma de calcul] = Activate
+[Cross references- documentaire] = Activate
+[Signature worksheet] = Activate
+[Totalisation] = Activate
+[Revue manger] = Activate
+[Legendes] = Activate
+[Cross references verticale] = Activate
+[Cross references horizontale] = Activate
+[Cross references libre] = Activate
+[Variable 1] = Contenu de [Variable 1]
+[Variable 2] = Contenu de [Variable 2]
+[Nb de lignes] = 10`
+                  },
+                  {
+                    id: 'demo',
+                    label: 'Demo',
+                    command: `[Command] = /feuille couverture
+[Processus] = capitaux propres
+[test] = FQ03
+[reference] = Revue du Contrôle interne
+[Nb de lignes] = 10
+[Demo] = Activate`
+                  },
+                  {
+                    id: 'avance',
+                    label: 'Avancé',
+                    command: `[Mode] = Avancé
+[Command] = /feuille couverture
+[Processus] = capitaux propres
+[test] = FQ03
+[reference] = Revue du Contrôle interne
+[Nb de lignes] = 10`
+                  },
+                  {
+                    id: 'methodo',
+                    label: 'Methodo revision',
+                    command: `[Mode] = Avancé
+[Methodo revision] : Activate
+[Command] = /feuille couverture
+[Processus] = capitaux propres
+[test] = FQ03
+[reference] = Revue du Contrôle interne
+[Nb de lignes] = 10`
+                  },
+                  {
+                    id: 'guide-commandes',
+                    label: 'Guide des commandes',
+                    command: `[Mode] = Avancé
+[Guide des commandes] : Activate
+[Command] = /feuille couverture
+[Processus] = capitaux propres
+[test] = FQ03
+[reference] = Revue du Contrôle interne
+[Nb de lignes] = 10`
+                  }
+                ]
+              },
+              {
+                id: 'capitaux-fq04',
+                reference: 'FQ04',
+                label: 'Revue des techniques comptables',
+                processus: 'capitaux propres',
+                command: `[Command] = /feuille couverture
+[Processus] = capitaux propres
+[test] = FQ04
+[reference] = Revue des techniques comptables
+[Nb de lignes] = 10`,
+                modes: [
+                  {
+                    id: 'normal',
+                    label: 'Normal',
+                    command: `[Command] = /feuille couverture
+[Processus] = capitaux propres
+[test] = FQ04
+[reference] = Revue des techniques comptables
+[Nb de lignes] = 10`
+                  },
+                  {
+                    id: 'papier-travail',
+                    label: 'Papier de travail',
+                    command: `[Command] = /feuille couverture
+[Processus] = capitaux propres
+[test] = FQ04
+[reference] = Revue des techniques comptables
+[Papier de travail] = Activate
+[Schéma de calcul] = Activate
+[Cross references- documentaire] = Activate
+[Signature worksheet] = Activate
+[Totalisation] = Activate
+[Revue manger] = Activate
+[Legendes] = Activate
+[Cross references verticale] = Activate
+[Cross references horizontale] = Activate
+[Cross references libre] = Activate
+[Variable 1] = Contenu de [Variable 1]
+[Variable 2] = Contenu de [Variable 2]
+[Nb de lignes] = 10`
+                  },
+                  {
+                    id: 'demo',
+                    label: 'Demo',
+                    command: `[Command] = /feuille couverture
+[Processus] = capitaux propres
+[test] = FQ04
+[reference] = Revue des techniques comptables
+[Nb de lignes] = 10
+[Demo] = Activate`
+                  },
+                  {
+                    id: 'avance',
+                    label: 'Avancé',
+                    command: `[Mode] = Avancé
+[Command] = /feuille couverture
+[Processus] = capitaux propres
+[test] = FQ04
+[reference] = Revue des techniques comptables
+[Nb de lignes] = 10`
+                  },
+                  {
+                    id: 'methodo',
+                    label: 'Methodo revision',
+                    command: `[Mode] = Avancé
+[Methodo revision] : Activate
+[Command] = /feuille couverture
+[Processus] = capitaux propres
+[test] = FQ04
+[reference] = Revue des techniques comptables
+[Nb de lignes] = 10`
+                  },
+                  {
+                    id: 'guide-commandes',
+                    label: 'Guide des commandes',
+                    command: `[Mode] = Avancé
+[Guide des commandes] : Activate
+[Command] = /feuille couverture
+[Processus] = capitaux propres
+[test] = FQ04
+[reference] = Revue des techniques comptables
 [Nb de lignes] = 10`
                   }
                 ]
